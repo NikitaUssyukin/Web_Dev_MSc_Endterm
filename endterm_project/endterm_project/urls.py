@@ -20,7 +20,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from .views import home
+
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('posts/', include("posts.urls")),
     path('auth/', include('auth.urls')),

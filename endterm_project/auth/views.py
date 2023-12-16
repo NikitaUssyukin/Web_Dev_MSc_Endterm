@@ -30,7 +30,7 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # redirect to home
+                return redirect('')  # redirect to home
             else:
                 messages.error(request, 'Invalid username or password')
     else:

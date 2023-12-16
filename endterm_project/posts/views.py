@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse
 from .models import Post
@@ -32,5 +33,19 @@ def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('post_list')
+
+# @login_required  # Optional
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user  
+            post.save()
+            return redirect('post_detail', pk=post.pk)  # Redirect to the new post's detail view
+    else:
+        form = PostForm()
+    return render(request, 'posts/create_post.html', {'form': form})
+
 
 

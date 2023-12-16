@@ -1,0 +1,9 @@
+{% block content %}
+  <h1>Welcome to Our Site!</h1>
+  <ul>
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="{% url 'register' %}">Register</a></li>
+    <li><a href="{% url 'post_list' %}">View Posts</a></li>
+    <li><a href="{% url 'create_post' %}">Create Post</a></li>
+  </ul>
+{% endblock %}

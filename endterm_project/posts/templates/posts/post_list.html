@@ -7,5 +7,7 @@
         <p>Posted by {{ post.author }} on {{ post.dateOfCreation }}</p>
       </li>
     {% endfor %}
+    <a href="{% url 'create_post' %}">{{ 'Create Post' }}</a>
+    <a href="{% url 'home' %}">{{ 'Home' }}</a>
   </ul>
 {% endblock %}

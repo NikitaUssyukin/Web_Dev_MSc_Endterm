@@ -28,13 +28,14 @@ def edit_post(request, pk):
         form = PostForm(instance=post)
     return render(request, 'posts/edit_post.html', {'form': form})
 
-@require_POST
 def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    post.delete()
-    return redirect('post_list')
+    if request.method == 'POST':
+        post.delete()
+        return redirect('post_list')  # Redirect after deletion
+    return render(request, 'posts/delete_post.html', {'post': post})
 
-# @login_required  # Optional
+@login_required  # Optional
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)

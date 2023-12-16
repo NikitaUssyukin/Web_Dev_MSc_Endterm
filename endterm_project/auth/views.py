@@ -13,10 +13,12 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            user.is_active = True
+            user.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}! You can now log in.')
-            return redirect('login/')  # redirect to login page
+            return redirect('login')  # redirect to login page
     else:
         form = UserRegisterForm()
     return render(request, 'auth/register.html', {'form': form})
@@ -28,11 +30,15 @@ def user_login(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
+
             if user is not None:
                 login(request, user)
-                return redirect('')  # redirect to home
+                # Redirect to 'next' parameter or a default page
+                next_url = request.GET.get('next', 'home') 
+                return redirect(next_url)
             else:
                 messages.error(request, 'Invalid username or password')
+
     else:
         form = AuthenticationForm()
     return render(request, 'auth/login.html', {'form': form})

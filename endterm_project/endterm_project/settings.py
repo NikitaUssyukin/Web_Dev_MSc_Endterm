@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+LOGIN_URL = '/auth/login/'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
     'auth.apps.AuthConfig',
-    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
